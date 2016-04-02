@@ -15,7 +15,7 @@ complete_ts <- ts(commence_complete[,3], start =2005)
 plot(complete_ts)
 
 ts.plot(complete_ts,commence_ts, col =c('red','blue'))
-
+commence_ts
 ################################################################################
 #ETS and HoltWinters forecasting methods are the top two refered to for time series predications
 #(literature states ets should be more reliable in all situations)
@@ -31,12 +31,13 @@ lines(commence_fit_ets$states[,1],col='red')
 #    #maybe not enough data to model accurately
 
 #HoltWinters forecast for commencements
-commence_fit_HW <- HoltWinters(commence_ts, gamma=FALSE)
+commence_fit_HW <- HoltWinters(commence_ts[1:11], gamma=F)
 plot(commence_fit_HW)
+commence_fit_HW
 commence_pred_HW <- forecast.HoltWinters(commence_fit_HW, h=5)
 plot(commence_pred_HW)
 commence_pred_HW
-#    #This Seems reasonable... but the model appears to diverge significantly from the observations....
+#    #This Seems reasonable... but the in range model appears to diverge significantly from the observations....
 
 
 
@@ -80,7 +81,7 @@ ts.plot(comp_ts_offset, comm_ts, col=c('red','blue'))
 #ETS commencing:
 comm_fit_ets <- ets(comm_ts)
 plot(comm_fit_ets)
-# looks like the model has properly decomposed the overall growth and season variation
+# looks like the model has properly decomposed the overall growth and error variation
 comm_pred_ets <- forecast.ets(comm_fit_ets, h=5)
 plot(comm_pred_ets)
 lines(comm_fit_ets$states[,1],col='red')
